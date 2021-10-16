@@ -6,12 +6,13 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var inventoryRouter = require('./routes/inventory');
 
 var app = express();
 
 // Set up mongoose connection to MongoDB
 var mongoose = require('mongoose');
-var mongoDB = ''
+var mongoDB = 'mongodb+srv://user001:user001@cluster0.bvjcg.mongodb.net/inventory_app?retryWrites=true&w=majority'
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 // Bind connection to error event (to get notifications of connection errors)
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/inventory', inventoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
